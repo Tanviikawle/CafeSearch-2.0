@@ -1,9 +1,34 @@
 <% layout('layouts/boilerplate') %>
-<link rel="stylesheet" href="/public/stylesheets/stars.css">
+<link rel="stylesheet" href="\stylesheets\stars.css">
+<link rel="stylesheet" href="\stylesheets\map.css">
+<!-- <style>
+    /*Example 1, all the CSS is defined here and not in JS*/            
+    #markerWithExternalCss {
+        background-image: url(https://tiles.locationiq.com/static/images/marker.png);
+        background-size: cover;
+        width: 100px;
+        height: 100px;
+        cursor: pointer;
+    }
+    
+    /*Example 2, most of the CSS is set by JS*/
+    .marker {
+        display: block;
+        border: none;
+        cursor: pointer;
+        padding: 0;
+    }
+
+</style> -->
+
+<script>
+    const mapToken = '<%-process.env.LOCATIONIQ_KEY%>';
+    const cafe = '<%-JSON.stringify(cafe)%>';
+</script>
 
 <div class="row">
     <div class="col-6">
-
+        <div id="map" style="width: 400px;height: 300px;"></div>
         <div id="cafeCarousel" class="carousel slide">
             <div class="carousel-inner">
             <% cafe.images.forEach((img , i)=>{ %>
@@ -94,3 +119,6 @@
         <% } %>
     </div>
 </div>
+
+
+<script src="/javascripts/showMap.js"></script>

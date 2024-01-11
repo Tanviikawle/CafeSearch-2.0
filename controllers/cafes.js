@@ -1,5 +1,31 @@
+const axios = require('axios');
+
 const Cafe = require('../models/cafe');
 const { cloudinary } = require('../cloudinary');
+const LOCATIONIQ_END_POINT = 'https://api.locationiq.com/v1/search/structured';
+
+const obj = {
+    key: process.env.LOCATIONIQ_KEY,
+    format:'json',
+    q:'',
+}
+
+// geometry:{type:{type: 'Point',},coordinates:{type:[lat,lon]}};
+
+const cafeLoc = async(req,res)=>{
+    try {
+      const response = await axios.get(LOCATIONIQ_END_POINT,{params:obj});
+      const { lat , lon } = response.data[0]
+
+      const geo_object = {type: 'Point',coordinates:[]};
+      geo_object.coordinates.push(lon);
+      geo_object.coordinates.push(lat);
+    //   console.log(geo_object)
+      return geo_object;
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
 module.exports.index = async(req,res)=>{
     const cafes = await Cafe.find({});
@@ -12,8 +38,12 @@ module.exports.renderNewForm = (req,res)=>{
 
 module.exports.createCafe = async (req,res,next)=>{
     const cafe = new Cafe(req.body.cafe);
+    obj.q = req.body.cafe.location,
     cafe.images = req.files.map(f => ({url: f.path, filename:f.filename}));
     cafe.author = req.user._id;
+    const result = await cafeLoc();
+    cafe.geometry = result;
+
     await cafe.save();
     console.log(cafe);
     req.flash('success','Successfully added a new cafe!')
