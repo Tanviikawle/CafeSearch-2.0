@@ -1,0 +1,70 @@
+<% layout('layouts/boilerplate')%>
+<div class="row">
+    <h1 class="text-center">Edit Cafe</h1>
+    <div class="col-6 offset-3">
+        <form action="/cafes/<%=cafe._id%>?_method=PUT" method="POST" novalidate class="validated-form" enctype="multipart/form-data">
+            <div class="mb-3">
+                <label class="form-label" for="title">Title</label>
+                <input class="form-control" type="text" id="title" name="cafe[title]"
+                    value="<%=cafe.title %>" required>
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="location">Location</label>
+                <input class="form-control" type="text" id="location" name="cafe[location]"
+                    value="<%=cafe.location %>" required>
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+            </div>
+            <div class="mb-3">
+                <div class="input-group custom-file">
+                    <label class="form-label" for="image">Upload Images: </label>
+                    <input type="file" class="form-control" name="image" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload" multiple>
+                    <!-- <button class="btn btn-outline-secondary" type="button" id="inputGroupFileAddon04">Upload</button> -->
+                </div>
+            </div>
+            <!-- <div class="mb-3">
+                <label class="form-label" for="image">Add Images</label>
+                <input type="file" name="image" id="image" multiple>
+            </div> -->
+            <div class="mb-3">
+                <label class="form-label" for="price">Coffee Price</label>
+                <div class="input-group">
+                    <span class="input-group-text" id="price-label">$</span>
+                    <input type="text" class="form-control" id="price" placeholder="0.00" aria-label="price"
+                        aria-describedby="price-label" name="cafe[price]" value="<%=cafe.price %>" required>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label" for="description">Description</label>
+                <textarea class="form-control" type="text" id="description"
+                    name="cafe[description]" required><%= cafe.description%></textarea>
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+            </div>
+            <div class="mb-3">
+                <% cafe.images.forEach(function(img,i){ %>
+                <img src="<%=img.thumbnail%>" class="img-thumbnail">
+                <div class="form-check-inline">
+                    <input type="checkbox" name="deleteImages[]" id="image-<%=i%>" value="<%=img.filename %>">
+                </div>
+                <label for="image-<%=i%>">Delete?</label>
+                <% }) %>
+            </div>
+            <div class="mb-3">
+                <button class="btn btn-info">Update cafe</button>
+            </div>
+        </form>
+        <a href="/cafes/<%= cafe._id%>">Back To cafe</a>
+
+    </div>
+</div>
+
