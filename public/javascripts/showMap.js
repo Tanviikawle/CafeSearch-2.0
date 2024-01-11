@@ -16,6 +16,13 @@ el2.style.width = '50px';
 el2.style.height = '50px';
 
 // add marker to map
+
 new maplibregl.Marker(el2)
     .setLngLat(parsedCafe.geometry.coordinates)
+    .setPopup(
+        new maplibregl.Popup({offset:25})
+            .setHTML(
+                `<h3>${parsedCafe.title}</h3><p>${parsedCafe.location}</p>`
+            )
+    )
     .addTo(map);

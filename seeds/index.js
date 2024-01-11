@@ -28,12 +28,14 @@ const seedDB = async () => {
             author: '659d2aba7b3688d2e50e8308',
             location: `${cities[random1000].city}, ${cities[random1000].state}`,
             title: `${sample(descriptors)} ${sample(places)}`,
-            image: 'https://source.unsplash.com/collection/483251',
+            geometry: { type: 'Point', coordinates: [ 72.8402203, 19.0549792 ] },
+            // image: 'https://source.unsplash.com/collection/483251',
             description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam dolores vero perferendis laudantium, consequuntur voluptatibus nulla architecto, sit soluta esse iure sed labore ipsam a cum nihil atque molestiae deserunt!',
             price,
             images: [
                 {
-                  url: 'https://res.cloudinary.com/dffinqrxs/image/upload/v1704887882/CafeSearch/hl045efe2rpfno9vicuu.jpg',
+                    url:'https://source.unsplash.com/collection/483251',
+                //   url: 'https://res.cloudinary.com/dffinqrxs/image/upload/v1704887882/CafeSearch/hl045efe2rpfno9vicuu.jpg',
                   filename: 'CafeSearch/hl045efe2rpfno9vicuu',
                 }
               ],
