@@ -1,6 +1,18 @@
 <% layout('layouts/boilerplate')%>
 
-<h1>All Cafes</h1>
+<link rel="stylesheet" href="\stylesheets\stars.css">
+<link rel="stylesheet" href="\stylesheets\map.css">
+
+<script>
+    const mapToken = '<%-process.env.LOCATIONIQ_KEY%>';
+    const cafes = '<%-JSON.stringify(cafes)%>';
+</script>
+<div class="container-fluid">
+    <div id="mainMap"></div>
+</div>
+<div>
+    <h1>All Cafes</h1>
+</div>
 <div>
     <a href="/cafes/new">Add Cafe</a>
 </div>
@@ -27,3 +39,5 @@
     </div>
 </div>
 <% } %>
+
+<script src="/javascripts/showAllCafes.js"></script>

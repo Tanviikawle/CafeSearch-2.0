@@ -1,9 +1,8 @@
-//Add your LocationIQ Maps Access Token here (not the API token!)
 locationiq.key = mapToken;
-const parsedCafe = JSON.parse(cafe)
+const parsedCafe = JSON.parse(cafe);
 //Define the map and configure the map's theme
 var map = new maplibregl.Map({
-    container: 'map',
+    container: 'showMap',
     style: locationiq.getLayer("Streets"),
     zoom: 12,
     center: parsedCafe.geometry.coordinates,
