@@ -16,7 +16,6 @@ router.get('/new',isLoggedIn,cafes.renderNewForm)
 router.route('/:id')
     .get(catchAsync(cafes.showCafe))
     .put(isLoggedIn,isAuthor,upload.array('image'),validateCafe, catchAsync(cafes.updateCafe))
-    .delete(isLoggedIn,isAuthor,catchAsync(cafes.deleteCafe))
 
 
 router.get('/:id/edit',isLoggedIn,isAuthor, catchAsync(cafes.renderEditForm))
