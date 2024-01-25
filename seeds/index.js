@@ -4,9 +4,9 @@ const { places, descriptors } = require('./seedHelpers');
 const Cafe = require('../models/cafe');
 
 mongoose.connect('mongodb://localhost:27017/cafeSearch', {
-    useNewUrlParser: true,
+    // useNewUrlParser: true,
     // useCreateIndex: true,
-    useUnifiedTopology: true
+    // useUnifiedTopology: true
 });
 
 const db = mongoose.connection;
@@ -23,7 +23,7 @@ const seedDB = async () => {
     await Cafe.deleteMany({});
     for (let i = 0; i < 50; i++) {
         const random1000 = Math.floor(Math.random() * 1000);
-        const price = Math.floor(Math.random()*20)+10;
+        const seats = '0-5';
         const cafe = new Cafe({
             author: '659d2aba7b3688d2e50e8308',
             location: `${cities[random1000].city}, ${cities[random1000].state}`,
@@ -31,7 +31,11 @@ const seedDB = async () => {
             geometry: { type: 'Point', coordinates: [ 72.8402203, 19.0549792 ] },
             // image: 'https://source.unsplash.com/collection/483251',
             description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam dolores vero perferendis laudantium, consequuntur voluptatibus nulla architecto, sit soluta esse iure sed labore ipsam a cum nihil atque molestiae deserunt!',
-            price,
+            seats,
+            has_sockets: false,
+            has_wifi: false,
+            has_toilet: true,
+            can_take_calls: true,
             images: [
                 {
                     url:'https://source.unsplash.com/collection/483251',

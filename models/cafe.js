@@ -25,9 +25,13 @@ const CafeSchema = new Schema({
             required:true
         },
     },
-    price: Number,
+    seats: String,
     description: String,
     location: String,
+    has_sockets: Boolean,
+    has_wifi: Boolean,
+    has_toilet: Boolean,
+    can_take_calls: Boolean,
     author: {
         type: Schema.Types.ObjectId,
         ref:'User',

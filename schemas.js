@@ -26,10 +26,14 @@ const Joi = BaseJoi.extend(extension);
 module.exports.cafeSchema =  Joi.object({
     cafe: Joi.object({
         title : Joi.string().required().escapeHTML(),
-        price : Joi.number().required().min(0),
+        seats : Joi.string().required().escapeHTML(),
         // image : Joi.string().required(),
         location : Joi.string().required().escapeHTML(),
         description : Joi.string().required().escapeHTML(),
+        has_sockets: Joi.boolean().required(),
+        has_wifi: Joi.boolean().required(),
+        has_toilet: Joi.boolean().required(),
+        can_take_calls: Joi.boolean().required(),
     }).required(),
     deleteImages: Joi.array(),
 });
