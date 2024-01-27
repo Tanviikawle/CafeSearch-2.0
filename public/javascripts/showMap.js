@@ -25,3 +25,21 @@ new maplibregl.Marker(el2)
             )
     )
     .addTo(map);
+
+
+var nav = new maplibregl.NavigationControl();
+    map.addControl(nav, 'top-right');
+    
+    //Add a Scale to the map
+    map.addControl(new maplibregl.ScaleControl({
+        maxWidth: 80,
+        unit: 'metric' //imperial for miles
+    }));
+
+    //Add Geolocation control to the map (will only render when page is opened over HTTPS)
+    map.addControl(new maplibregl.GeolocateControl({    
+        positionOptions: {
+            enableHighAccuracy: true
+        },
+        trackUserLocation: true
+    }));
