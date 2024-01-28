@@ -21,7 +21,12 @@ const cafeRoutes = require('./routes/cafes');
 const reviewRoutes = require('./routes/reviews');
 const userRoutes = require('./routes/users');
 
-mongoose.connect('mongodb://localhost:27017/cafeSearch',{
+// const { MongoStore } = require('connect-mongo');
+const MongoStore = require('connect-mongo');
+
+const dbUrl = 'mongodb://localhost:27017/cafeSearch';
+// 'mongodb://localhost:27017/cafeSearch'
+mongoose.connect(dbUrl,{
     // useNewUrlParser: true,
     // useCreateIndex: true,
     // useUnifiedTopology: true,
@@ -41,7 +46,25 @@ app.use(methodOverride('_method'))
 app.use(express.static(path.join(__dirname,'public')))
 app.use(mongoSanitize());
 
+// const store = new MongoDBStore({
+//     url: dbUrl,
+//     secret: 'thisshouldbeabettersecret!',
+//     touchAfter: 24*60*60
+// });
+
+const store = MongoStore.create({
+    mongoUrl: dbUrl,
+    collectionName: 'session',
+    secret: 'thisshouldbeabettersecret!',
+    touchAfter: 24*60*60
+})
+
+store.on('error',function(e){
+    console.log("SESSION STORE ERROR",e)
+})
+
 const sessionConfig = {
+    store,
     name:'session',
     secret: 'thisshouldbeabettersecret!',
     resave: false,
@@ -54,7 +77,7 @@ const sessionConfig = {
 
     }
 }
-app.use(session(sessionConfig))
+app.use(session(sessionConfig));
 app.use(flash());
 app.use(helmet({contentSecurityPolicy:false}));
 

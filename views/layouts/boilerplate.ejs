@@ -17,7 +17,9 @@
 <body class="d-flex flex-column vh-100">
     <%- include('../partials/navbar')%>
     <main class="container-fluid">
-        <%- include('../partials/flash')%>
+        <div class="container" style="display: flex; justify-content: center;" >
+            <%- include('../partials/flash')%>
+        </div>
         <%- body %>
     </main>
     <%- include('../partials/footer')%>
