@@ -21,10 +21,9 @@ const cafeRoutes = require('./routes/cafes');
 const reviewRoutes = require('./routes/reviews');
 const userRoutes = require('./routes/users');
 
-// const { MongoStore } = require('connect-mongo');
 const MongoStore = require('connect-mongo');
 
-const dbUrl = 'mongodb://localhost:27017/cafeSearch';
+const dbUrl = process.env.DB_URL;
 // 'mongodb://localhost:27017/cafeSearch'
 mongoose.connect(dbUrl,{
     // useNewUrlParser: true,
@@ -45,12 +44,6 @@ app.use(express.urlencoded({extended:true}))
 app.use(methodOverride('_method'))
 app.use(express.static(path.join(__dirname,'public')))
 app.use(mongoSanitize());
-
-// const store = new MongoDBStore({
-//     url: dbUrl,
-//     secret: 'thisshouldbeabettersecret!',
-//     touchAfter: 24*60*60
-// });
 
 const store = MongoStore.create({
     mongoUrl: dbUrl,
@@ -115,7 +108,6 @@ app.use((err,req,res,next)=>{
     const {statusCode = 500} = err;
     if (!err.message) err.message = 'Oh No, Something wenr wrong!'
     res.status(statusCode).render('error',{err});
-    // res.send('Oh boy, Something went wrong!!');
 })
 
 app.listen(3000, ()=>{
